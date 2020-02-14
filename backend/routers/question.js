@@ -1,12 +1,12 @@
 const express = require('express');
 const Question = require('../models/question')
-const auth = require('../middleware/auth');
+const checkAuth = require('../middleware/checkAuth')
 
 const router = new express.Router()
 
 //create question
-router.post('/questions/:id', auth, async (req, res) => {
-  req.body.questioner = req.user._id;
+router.post('/questions/:id', checkAuth, async (req, res) => {
+  req.body.questioner = req.session.userID;
   req.body.owner = req.params.id;
   try{
     if(req.body.questioner.toString() === req.body.owner){
@@ -24,7 +24,7 @@ router.post('/questions/:id', auth, async (req, res) => {
 
 
 //delete question
-router.delete('/questions/:id', auth, async (req, res) => {
+router.delete('/questions/:id', checkAuth, async (req, res) => {
   try{
     const question = await Question.findByIdAndDelete(req.params.id)
     if(!question){
@@ -39,10 +39,10 @@ router.delete('/questions/:id', auth, async (req, res) => {
 
 
 //read questions
-router.get('/questions', auth, async(req, res) => {
+router.get('/questions', checkAuth, async(req, res) => {
   try{
-    const questions = await Question.find({ owner: req.user._id })
-    console.log(questions)
+    const owner = req.session.userID;
+    const questions = await Question.find({ owner })
     if(!questions){
       return res.status(404).send()
     }
@@ -54,7 +54,7 @@ router.get('/questions', auth, async(req, res) => {
 })
 
 //read a question
-router.get('/questions/:id', auth, async(req, res) => {
+router.get('/questions/:id', checkAuth, async(req, res) => {
   try{
     const question = await Question.findOne({_id: req.params.id})
     if(!question){
@@ -69,7 +69,7 @@ router.get('/questions/:id', auth, async(req, res) => {
 
 
 //delete questions
-router.delete('/questions', async (req, res) => {
+router.delete('/questions', checkAuth, async (req, res) => {
   try {
     const questions = await Question.deleteMany()
     res.send()

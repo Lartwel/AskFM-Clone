@@ -17,7 +17,8 @@
     "bcrypt": "^3.0.7",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "epxress": "0.0.1-security",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "mongoose": "^5.8.11",
     "validator": "^12.2.0"
   }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
@@ -33,8 +33,8 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
-  tokens: [{
-    token: {
+  cookies: [{
+    cookie: {
       type: String,
       required: true
     }
@@ -59,7 +59,10 @@ userSchema.virtual('questions', {
 })
 
 //to find user by credentials when logging in
-userSchema.statics.findByCredentials = async ({email, password}) => {
+userSchema.statics.findByCredentials = async req => {
+
+  const {email, password} = req.body;
+
   const user = await User.findOne({ email })
   if(!user){
     throw new Error('Unable to login!')
@@ -68,19 +71,24 @@ userSchema.statics.findByCredentials = async ({email, password}) => {
   if(!isMatch){
     throw new Error('Unable to login!')
   }
+  
+  //authenticate user login session
+  req.session.email = user.email;
+  req.session.userID = user._id;
+
   return user
 }
 
 // to generate auth token and save it to user model's tokens
-userSchema.methods.generateAuthToken = async function () {
-  console.log('authing')
-  const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, 'askunderground888')
-  console.log('token', token);
-  user.tokens = user.tokens.concat({ token })
-  await user.save();
-  return token;
-}
+// userSchema.methods.generateAuthToken = async function () {
+//   console.log('authing')
+//   const user = this;
+//   const token = jwt.sign({ _id: user._id.toString() }, 'askunderground888')
+//   console.log('token', token);
+//   user.tokens = user.tokens.concat({ token })
+//   await user.save();
+//   return token;
+// }
 
 
 // hash the plain text password before saving

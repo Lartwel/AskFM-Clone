@@ -17,11 +17,11 @@ const questionSchema = new mongoose.Schema({
     ref: 'User'
   },
   questioner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String, // mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   },
-  anonymity: { // to hide the question's questioner/owner identity
+  anonymity: { // to hide the question's questioner identity
     type: Boolean,
     required: true
   },
