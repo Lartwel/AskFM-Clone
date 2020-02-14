@@ -29,11 +29,21 @@ router.post('/users', async(req, res) => {
     //auth session
     req.session.email = user.email;
     req.session.userID = user._id;
+    req.session.username = user.username;
     
     res.status(201).send({user})
   } catch(e){
-    console.log('create user', e)
-    res.status(400).send()
+    //checking if the username or email are already taken
+    try{
+      const user = await User.findByCredentials(req) //find user and authenticate session
+      if(user){
+        console.log('eeeeeee', Object.keys(e))
+        res.status(409).json(e)
+      }
+    } catch(e){
+      console.log('create user', e)
+      res.status(409).send(e)
+    }
   }
 })
 
@@ -53,7 +63,7 @@ router.post('/users/login', async (req, res) => {
   try{
     req.body.email = req.body.email.toLowerCase();
     const user = await User.findByCredentials(req) //find user and authenticate session
-    return res.send({user, sid:req.sessionID})
+    return res.send({user})
   } catch(e){
     console.log("logging error", e);
     res.status(400).send()
@@ -65,7 +75,8 @@ router.post('/users/logout', async (req, res) => {
   try {
     req.session.email = '';
     req.session.userID = '';
-    res.send("Signed out successfully", req.session.email, req.session.userID)
+    req.session.username = '';
+    res.send("Signed out successfully")
   } catch(e){
     console.log('logout error', e);
     res.status(500).send()

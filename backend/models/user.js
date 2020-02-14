@@ -32,13 +32,7 @@ const userSchema = new mongoose.Schema({
         throw new Error('Please, choose a stronger password.')
       }
     }
-  },
-  cookies: [{
-    cookie: {
-      type: String,
-      required: true
-    }
-  }]
+  }
 },{
   timestamps: true
 })
@@ -75,6 +69,7 @@ userSchema.statics.findByCredentials = async req => {
   //authenticate user login session
   req.session.email = user.email;
   req.session.userID = user._id;
+  req.session.username = user.username;
 
   return user
 }

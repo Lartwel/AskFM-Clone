@@ -9,15 +9,16 @@ const questionSchema = new mongoose.Schema({
   },
   answer: {
     type: String,
+    default: '',
     trim: true,
   },
   owner: { //user who is asked
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     ref: 'User'
   },
   questioner: {
-    type: String, // mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     ref: 'User'
   },
@@ -27,6 +28,18 @@ const questionSchema = new mongoose.Schema({
   },
 })
 
+
+
+//hiding sensitive data (owner and questioner) before sending to client-side
+questionSchema.methods.toJSON = function(){
+  const question = this;
+  const questionObject = question.toObject();
+  if(question.anonymity === true){
+    questionObject.questioner = 'Anonymous';
+  }
+  delete questionObject.owner
+  return questionObject;
+}
 
 const Question = mongoose.model('Question', questionSchema)
 

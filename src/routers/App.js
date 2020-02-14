@@ -1,9 +1,10 @@
 import React from 'react';
 import { ThemeProvider, CSSReset } from '@chakra-ui/core';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { LoginPage } from '../components/LoginPage'
-import { SignupPage } from '../components/SignupPage';
-import { Wall } from '../components/Wall'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Login } from '../pages/Login';
+import { Signup } from '../pages/Signup';
+import { Wall } from '../pages/Wall';
+import { PendingQuestions } from '../pages/PendingQuestions'
 
 function App() {
   return (
@@ -15,10 +16,13 @@ function App() {
             <Wall />
           </Route>
           <Route path="/login">
-            <LoginPage />
+            <Login />
           </Route>
           <Route path="/signup">
-            <SignupPage />
+            <Signup />
+          </Route>
+          <Route path="/questions">
+            <PendingQuestions></PendingQuestions>
           </Route>
         </Switch>
       </Router>

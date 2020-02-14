@@ -1,10 +1,11 @@
 
 import {
   GET_QUESTIONS,
+  GET_PENDING_QUESTIONS,
   GET_QUESTION,
-  DELETE_QUESTION,
-  ADD_QUESTION,
-  ADD_COMMENT,
+  // DELETE_QUESTION,
+  // ADD_QUESTION,
+  // ADD_COMMENT,
   QUESTION_ERROR
 } from '../actions/types'
 
@@ -21,6 +22,14 @@ export const questionReducer = (state = initialQuestions, action) => {
 
   switch(type){
     case GET_QUESTIONS: 
+    console.log('get q', payload)
+      return {
+        ...state,
+        questions: payload,
+        loading: false
+      }
+    case GET_PENDING_QUESTIONS: 
+    console.log('payload', payload)
       return {
         ...state,
         questions: payload,
