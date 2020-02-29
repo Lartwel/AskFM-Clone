@@ -23,7 +23,6 @@ export const Signup = (props) => {
 
   const handleEmailChange = e => {
     setEmail(e.target.value)
-    console.log(props)
   }
   
   const handleUsernameChange = e => {
@@ -59,10 +58,8 @@ export const Signup = (props) => {
             duration: 2000,
             isClosable: true,
           })
-          console.log(res.data)
           history.push('/')
         }
-        console.log('our res', res)
       }).catch(e => {
         if(e.response.status === 409){
           toast({

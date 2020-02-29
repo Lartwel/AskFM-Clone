@@ -13,7 +13,6 @@ export const PendingQuestions = () => {
   useEffect(() => {
     getPendingQuestions()(dispatch)
     setHasAuth(true);
-    console.log(questions)
   }, [])
 
   return (
@@ -30,7 +29,7 @@ export const PendingQuestions = () => {
                       {
                         questions.questions.map((question) => {
                           return (
-                            <Question question={question} key={question._id} />
+                            <Question question={question} key={question._id} isPending={true} id={question._id} />
                           )
                         })
                       }

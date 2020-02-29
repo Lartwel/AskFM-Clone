@@ -49,10 +49,8 @@ export const Login = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('submitting')
     axios.post('users/login', { email, password })
       .then(res => {
-        console.log(res)
         if(res.status === 200){
           toast({
             title: "Success!",
@@ -63,7 +61,6 @@ export const Login = (props) => {
           })
           history.push('/')
         }
-        console.log('login res', res)
       }).catch(e => {
         if(e.response.status === 400){
           toast({

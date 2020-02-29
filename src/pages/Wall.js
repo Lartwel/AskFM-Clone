@@ -14,7 +14,6 @@ export const Wall = function(){
   const [hasAuth, setHasAuth] = useState() 
   const history = useHistory();
 
-
   useEffect(() => {
     let unmount = false;
     const source = axios.CancelToken.source() //axios source token needed to clean up the axios request
@@ -24,7 +23,6 @@ export const Wall = function(){
           const res = await axios.get('/wall', { cancelToken: source.token })
           setHasAuth(res.status === 200)
         } catch(e) {
-          console.log('ee', e)
           history.push('/login')
         }
       }
@@ -40,7 +38,6 @@ export const Wall = function(){
   useEffect(() => {
     const load = async () => {
       getQuestions(dispatch);
-      console.log(questions)
     }; 
     load()
   }, [])

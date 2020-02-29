@@ -18,7 +18,6 @@ router.post('/questions/:username', checkAuth, async (req, res) => {
     await question.save()
     res.status(201).send(question)
   } catch(e){
-    console.log(e)
     res.status(400).send()
   }
 })
@@ -33,7 +32,6 @@ router.get('/questions', checkAuth, async(req, res) => {
     }
     res.send(questions)
   } catch(e) {
-    console.log(e);
     res.status(400).send()
   }
 })
@@ -42,7 +40,6 @@ router.get('/questions', checkAuth, async(req, res) => {
 router.get('/questions/answered', checkAuth, async (req, res) => {
   try {
     const questions = await Question.find({ answer: { $ne: '' }})
-    console.log(questions)
     res.send(questions);
   } catch(e) {
     res.status(400).send()
@@ -54,7 +51,6 @@ router.get('/questions/answered', checkAuth, async (req, res) => {
 router.get('/questions/pending', checkAuth, async (req, res) => {
   try {
     const questions = await Question.find({ answer: '', owner: req.session.username})
-    console.log(questions)
     res.send(questions);
   } catch(e) {
     res.status(400).send()
@@ -70,7 +66,6 @@ router.get('/questions/:id', checkAuth, async(req, res) => {
     }
     res.send(question)
   } catch(e) {
-    console.log(e);
     res.status(400).send()
   }
 })
@@ -79,6 +74,7 @@ router.get('/questions/:id', checkAuth, async(req, res) => {
 //answer a question
 router.post('/questions/:id/answer', checkAuth, async(req, res) => {
   try{
+    console.log('answer route: ', req.body.answer)
     const question = await Question.findById(req.params.id);
     if(!question){
       res.status(404).send()
@@ -102,7 +98,6 @@ router.delete('/questions/:id', checkAuth, async (req, res) => {
     }
     res.status(200).send(question)
   } catch(e){
-    console.log(e)
     res.status(400).send()
   }
 })
@@ -113,7 +108,6 @@ router.delete('/questions', checkAuth, async (req, res) => {
     const questions = await Question.deleteMany()
     res.send()
   } catch (e) {
-    console.log(e);
     res.status(400).send()
   }
 })

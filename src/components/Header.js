@@ -30,7 +30,6 @@ export const Header = ({ hasLoggedIn }) => {
           duration: 2000,
           isClosable: true,
         })
-        console.log('logout err', e)
       })
   }
   return (

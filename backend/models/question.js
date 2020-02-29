@@ -30,14 +30,13 @@ const questionSchema = new mongoose.Schema({
 
 
 
-//hiding sensitive data (owner and questioner) before sending to client-side
+//hiding sensitive data (questioner) before sending to client-side
 questionSchema.methods.toJSON = function(){
   const question = this;
   const questionObject = question.toObject();
   if(question.anonymity === true){
     questionObject.questioner = 'Anonymous';
   }
-  delete questionObject.owner
   return questionObject;
 }
 

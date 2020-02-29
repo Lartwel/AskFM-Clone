@@ -11,6 +11,7 @@
   "author": "Mahmoud Ahmed",
   "license": "MIT",
   "devDependencies": {
+    "chalk": "^3.0.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {

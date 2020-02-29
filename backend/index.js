@@ -29,9 +29,6 @@ app.use(express.json())
 app.use(cors())
 
 app.use((req, res, next) => {
-  console.log('################')
-  console.log(req.url)
-  console.log('################')
   next()
 })
 

@@ -32,7 +32,17 @@ const userSchema = new mongoose.Schema({
         throw new Error('Please, choose a stronger password.')
       }
     }
-  }
+  },
+  followers: [{
+    type: mongoose.Types.ObjectId,
+    required: true,
+    trim: true,
+  }],
+  following: [{
+    type: mongoose.Types.ObjectId,
+    required: true,
+    trim: true,
+  }]
 },{
   timestamps: true
 })

@@ -5,6 +5,7 @@ import { Login } from '../pages/Login';
 import { Signup } from '../pages/Signup';
 import { Wall } from '../pages/Wall';
 import { PendingQuestions } from '../pages/PendingQuestions'
+import { Reply } from '../pages/Reply'
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
           <Route path="/signup">
             <Signup />
           </Route>
-          <Route path="/questions">
+          <Route path="/questions" exact>
             <PendingQuestions></PendingQuestions>
+          </Route>
+          <Route path="/questions/reply/:id" exact>
+            <Reply></Reply>
           </Route>
         </Switch>
       </Router>
