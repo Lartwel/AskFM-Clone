@@ -36,7 +36,8 @@ export const Signup = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    
+    console.log(email, username, password)
+
     if(password.length < 8){
       toast({
         title: "Error!",
@@ -50,6 +51,7 @@ export const Signup = (props) => {
 
     axios.post('http://localhost:3000/users', { email, username, password })
       .then(res => {
+
         if(res.status === 201){
           toast({
             title: "Account created.",

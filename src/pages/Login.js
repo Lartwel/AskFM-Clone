@@ -50,7 +50,7 @@ export const Login = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
     axios.post('users/login', { email, password })
-      .then(res => {
+    .then(res => {
         if(res.status === 200){
           toast({
             title: "Success!",

@@ -1,6 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import { Flex, Heading, Textarea, Button, useToast, CircularProgress } from '@chakra-ui/core'
-import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { questionReducer } from '../reducers/question'

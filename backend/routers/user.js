@@ -35,12 +35,14 @@ router.post('/users', async(req, res) => {
     res.status(201).send({user})
   } catch(e){
     //checking if the username or email are already taken
+    console.log('eee', e)
     try{
       const user = await User.findByCredentials(req) //find user and authenticate session
       if(user){
         res.status(409).json(e)
       }
     } catch(e){
+      console.log(e)
       res.status(409).send(e)
     }
   }
